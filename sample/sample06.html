@@ -19,14 +19,14 @@
     <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
   </body>
   <script>
-    const RootComponent = {
-      template: `<div>Root Component</div>`
+    const ComponentB = {
+      template: `<div>Component B</div>`
     }
 
     const router = new VueRouter({
       routes: [
-        { path: '/', component: RootComponent },
-        { path: '/a', redirect: '/' }
+        { path: '/b', component: ComponentB },
+        { path: '/a', redirect: '/b' }
       ]
     })
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sample.css">
+  </head>
+  <body>
+    <!--
+      Vue Router Alias
+    -->
+    <div id="app">
+      <router-view class="view one"></router-view>
+      <router-view class="view two" name="a"></router-view>
+      <router-view class="view three" name="b"></router-view>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  </body>
+  <script>
+    const ComponentB = {
+      template: `<div>Component B</div>`
+    }
+
+    const router = new VueRouter({
+      routes: [
+        { path: '/b', component: ComponentB, alias: '/a' }
+      ]
+    })
+
+    const app = new Vue({
+      router
+    }).$mount('#app')
+  </script>
+</html>

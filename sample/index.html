@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Vue Sample</title>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <!--<script
+    src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+    integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+    crossorigin="anonymous"></script>-->
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body>
+  <div id="app-left">
+    <div class="item-list">
+      <div class="item" v-for="url in urls">
+        <a :href="url">{{url.substring(0, url.indexOf('.'))}}</a>
+      </div>
+    </div>
+  </div>
+  <div id="app-right" class="content">
+    <h1>Wellcome to Vue.js</h1>
+  </div>
+
+  <script>
+    let app = new Vue({
+      el: '#app-left',
+      data: {
+        urlNum: 20
+      },
+      computed: {
+        urls: function() {
+          var urls = [];
+          for ( var i = 0 ; i < this.urlNum ; i++ )
+            if ( i + 1 < 10 )
+              urls.push(`sample0${i + 1}.html`);
+            else
+              urls.push(`sample${i + 1}.html`);
+          return urls;
+        }
+      }
+    });
+
+    let appRight = new Vue({
+      el: '#app-right',
+      data: {
+        price: 0,
+        showChildComponent: true
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sample.css">
+  </head>
+  <body>
+    <!--
+      Vue Nested Routes
+    -->
+    <div id="app">
+      <router-link to="/user/Deleav">User1</router-link>
+      <router-link to="/user/DMoon">User2</router-link>
+      <router-view></router-view>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  </body>
+  <script>
+    const User = {
+      template: `
+        <div class="user">
+          <router-link :to="'/user/'+$route.params.id+'/profile'">{{$route.params.id}} Profile</router-link>
+          <router-link :to="'/user/'+$route.params.id+'/posts'">{{$route.params.id}} Posts</router-link>
+          <h2>User {{ $route.params.id }}</h2>
+          <router-view class="nest"></router-view>
+        </div>
+      `
+    }
+
+    const UserProfile = {
+      template: `
+        <div>
+          <h2>My name is {{ $route.params.id }}</h2>
+        </div>
+      `
+    }
+
+    const UserPosts = {
+      template: `
+        <div>
+          <h2>Today is a good day</h2>
+          by {{ $route.params.id }}
+        </div>
+      `
+    }
+
+    const router = new VueRouter({
+      routes: [
+        { path: '/user/:id', component: User,
+          children: [
+            {
+              path: 'profile',
+              component: UserProfile
+            },
+            {
+              path: 'posts',
+              component: UserPosts
+            }
+          ]
+        }
+      ]
+    })
+
+    const app = new Vue({
+      router
+    }).$mount('#app')
+  </script>
+  <style>
+    .user {
+      border: 1px solid blue;
+    }
+    .nest {
+      border: 1px solid red;
+    }
+  </style>
+</html>

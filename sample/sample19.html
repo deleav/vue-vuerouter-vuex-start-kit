@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sample.css">
+  </head>
+  <body>
+    <!--
+      Vuex Actions
+    -->
+    <div id="app">
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex/dist/vuex.js"></script>
+  </body>
+  <script>
+    const { mapState } = Vuex;
+    const moduleA = {
+      namespaced: true,
+      state: {
+        count: 0
+      },
+      mutations: {  },
+      actions: {  },
+      getters: {  }
+    }
+
+    const moduleB = {
+      namespaced: true,
+      state: {
+        count: 1
+      },
+      mutations: {  },
+      actions: {  }
+    }
+
+    const store = new Vuex.Store({
+      state: {
+        count: -1
+      },
+      modules: {
+        a: moduleA,
+        b: moduleB
+      }
+    })
+
+    console.log( store.state.count ); // -> Global 的狀態
+    console.log( store.state.a.count ); // -> moduleA 的狀態
+    console.log( store.state.b.count ); // -> moduleB 的狀態
+
+    const Counter = {
+      template: `<div>{{ count }}</div>`,
+      computed: mapState('a', [
+        'count'
+      ])
+    }
+
+    const app = new Vue({
+      el: '#app',
+      store,
+      components: {
+        Counter
+      },
+      template: `
+        <div class="app">
+          <counter></counter>
+        </div>
+      `
+    })
+  </script>
+</html>

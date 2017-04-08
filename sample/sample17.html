@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sample.css">
+  </head>
+  <body>
+    <!--
+      Vuex mapMutations
+    -->
+    <div id="app">
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex/dist/vuex.js"></script>
+  </body>
+  <script>
+    const { mapState, mapMutations } = Vuex;
+    const INCREMENT = 'INCREMENT';
+    const store = new Vuex.Store({
+      state: {
+        count: 1
+      },
+      mutations: {
+        [INCREMENT] (state, payload) {
+          state.count += payload.amount | 1;
+        }
+      }
+    })
+
+    const Counter = {
+      template: `<div>{{ count }} <button @click="INCREMENT">INCREMENT</button></div>`,
+      computed: mapState([
+        'count'
+      ]),
+      methods: mapMutations([
+        INCREMENT
+      ])
+    }
+
+    const app = new Vue({
+      el: '#app',
+      store,
+      components: {
+        Counter
+      },
+      template: `
+        <div class="app">
+          <counter></counter>
+        </div>
+      `
+    })
+  </script>
+</html>

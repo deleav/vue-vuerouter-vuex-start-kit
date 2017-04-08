@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sample.css">
+  </head>
+  <body>
+    <!--
+      Vuex Mutations with const type
+    -->
+    <div id="app">
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex/dist/vuex.js"></script>
+  </body>
+  <script>
+    const INCREMENT = 'INCREMENT';
+    const store = new Vuex.Store({
+      state: {
+        count: 1
+      },
+      mutations: {
+        [INCREMENT] (state, payload) {
+          state.count += payload.amount
+        }
+      }
+    })
+
+    store.commit(INCREMENT, {
+      amount: 10
+    });
+  </script>
+</html>

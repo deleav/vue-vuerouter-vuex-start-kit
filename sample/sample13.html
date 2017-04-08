@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sample.css">
+  </head>
+  <body>
+    <!--
+      Vuex Getters
+    -->
+    <div id="app">
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex/dist/vuex.js"></script>
+  </body>
+  <script>
+    const { mapGetters } = Vuex;
+    const store = new Vuex.Store({
+      state: {
+        todos: [
+          { id: 1, text: '...', done: true },
+          { id: 2, text: '...', done: false }
+        ]
+      },
+      getters: {
+        doneTodos: state => {
+          return state.todos.filter(todo => todo.done)
+        },
+        doneTodosCount: (state, getters) => {
+          return getters.doneTodos.length
+        }
+      }
+    })
+
+    const Counter = {
+      template: `<div>doneTodos: {{ doneTodos }} <br> doneTodosCount: {{ doneTodosCount }}</div>`,
+      computed: mapGetters([
+        'doneTodos',
+        'doneTodosCount'
+      ])
+    }
+
+    const app = new Vue({
+      el: '#app',
+      store,
+      components: {
+        Counter
+      },
+      template: `
+        <div class="app">
+          <counter></counter>
+        </div>
+      `
+    })
+  </script>
+</html>

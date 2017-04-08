@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="sample.css">
+  </head>
+  <body>
+    <!--
+      Vuex Form Handling
+    -->
+    <div id="app">
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vuex/dist/vuex.js"></script>
+  </body>
+  <script>
+    const store = new Vuex.Store({
+      state: {
+        obj: {
+          message: 'Hi'
+        }
+      },
+      mutations: {
+        updateMessage( state, payload ) {
+          state.obj.message = payload.value;
+        }
+      }
+    })
+
+    const Counter = {
+      template: `
+        <div>
+          <input v-model="message" />
+          {{ message }}
+        </div>
+      `,
+      computed: {
+        message: {
+          get () {
+            return this.$store.state.obj.message
+          },
+          set (value) {
+            this.$store.commit('updateMessage', { value: value })
+          }
+        }
+      }
+    }
+
+    const app = new Vue({
+      el: '#app',
+      store,
+      components: {
+        Counter
+      },
+      template: `
+        <div class="app">
+          <counter></counter>
+        </div>
+      `
+    })
+  </script>
+</html>
